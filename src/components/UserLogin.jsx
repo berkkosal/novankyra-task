@@ -2,7 +2,7 @@ import { Box, Button, Stack, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import NetworkManager from '../services/NetworkManager';
 
-export default function UserLogin() {
+export default function UserLogin({ tokens }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,11 +10,24 @@ export default function UserLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await NetworkManager.post("/token/",{email, password});
+      const response = await NetworkManager.post("/token/", { email, password });
       console.log(response);
+      tokens = response.data;
+      console.log(tokens);
     } catch (error) {
       console.log(`Error: ${error.message}`);
     }
+  }
+
+  const handleEnvironmentsClick = async (e) => {
+    try {
+      const response = await NetworkManager.get("/v1/environments?org_id=1/")
+    } catch (error) {
+      console.log(`Error: ${error.message}`);
+    }
+  }
+
+  const handleTargetsClick = (e) => {
 
   }
 
@@ -30,7 +43,7 @@ export default function UserLogin() {
         borderRadius="10%">
 
         <h1>Sign In</h1>
-        <form onSubmit={handleSubmit}>
+        <form style={{display:"flex", flexDirection:"column", justifyContent:"center"}}onSubmit={handleSubmit}>
           <Stack direction="row" sx={{ mt: '2rem' }} spacing={5}>
             <TextField
               required
@@ -51,13 +64,29 @@ export default function UserLogin() {
               onChange={(e) => setPassword(e.target.value)} />
           </Stack>
           <Button
-            sx={{ mt: '2rem', bgcolor: "#5885AF" }}
+            sx={{ mt: '2rem', bgcolor: "#5885AF",}}
             variant="contained"
             type="submit"
           >Submit
           </Button>
         </form>
+
+        <Button sx={{mt:'2rem'}}
+          onClick={handleEnvironmentsClick}
+          variant="outlined">
+          Get Environments
+        </Button>
+
+        <Button 
+          sx={{mt:'2rem'}}
+          onClick={handleTargetsClick}
+          variant="outlined">
+          Get Targets
+        </Button>
+
       </Stack>
-    </Box >
+
+
+    </Box>
   );
 }
