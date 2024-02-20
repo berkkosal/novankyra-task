@@ -2,13 +2,13 @@ import { Box, Button, Stack, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import NetworkManager from '../services/NetworkManager';
 
-export default function UserLogin({ tokens }) {
+export default function UserLogin({}) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
-  
+  let tokens; 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,27 +16,23 @@ export default function UserLogin({ tokens }) {
       const response = await NetworkManager.post("/token/", { email, password });
       console.log(response);
       tokens = response.data;
-      console.log(tokens);
     } catch (error) {
       console.log(`Error: ${error.message}`);
     }
+    
   }
 
   const handleEnvironmentsClick = async (e) => {
+    NetworkManager.defaults.headers.get['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA4NDYxMDI0LCJpYXQiOjE3MDg0NTc0MjQsImp0aSI6IjU0MjcxNmY5OGIyNTQyNmNhNmRhOTY3NmM1MWQ5ZjA4IiwidXNlcl9pZCI6MSwiaWRlbnRpdHkiOiI0YzM0ZjFmYi00ZjlkLTQ2NDItODE4ZC1lNjQ0YzE5MzNjZTQifQ.jhXUq2M4GZAd4O66YGbFHNwlnlkTeeE3_bPnV6AIlCU'
     try {
-      NetworkManager.defaults.headers.get['Content-Type'] = 'application/json';
-      NetworkManager.defaults.headers.get['Accept'] = '*/*';
-      NetworkManager.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
-      NetworkManager.defaults.headers.get['Access-Control-Allow-Credentials'] = 'true';
-      NetworkManager.defaults.headers.get['Access-Control-Allow-Methods'] = 'POST, PUT, PATCH, GET, DELETE, OPTIONS';
-      NetworkManager.defaults.headers.get['Access-Control-Allow-Headers'] = 'Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization';
-      NetworkManager.defaults.headers.get['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA4NDUyMDI0LCJpYXQiOjE3MDg0NDg0MjQsImp0aSI6IjQ2ZjcwZGUwNTMxNzRkYTE5MzM3ODhkNTVkZGQxYzRkIiwidXNlcl9pZCI6MSwiaWRlbnRpdHkiOiI0YzM0ZjFmYi00ZjlkLTQ2NDItODE4ZC1lNjQ0YzE5MzNjZTQifQ.sUkmKOgChU3UQIfLbF2zALqTAB_7WZkF9kw_167-Ndk'
-      
       const response = await NetworkManager.get("/v1/environments?org_id=1",);
-      console.log(response);
+      console.log(response.data);
     } catch (error) {
       console.log(`Error: ${error.message}`);
     }
+
+    console.log(tokens);
+
   }
 
   const handleTargetsClick = (e) => {
