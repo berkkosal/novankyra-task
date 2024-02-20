@@ -2,24 +2,22 @@ import { Box, Button, Stack, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import NetworkManager from '../services/NetworkManager';
 
-export default function UserLogin({}) {
+export default function UserLogin({ }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  let tokens; 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await NetworkManager.post("/token/", { email, password });
-      console.log(response);
-      tokens = response.data;
+      console.log('Access Token: ' + response.data.access);
     } catch (error) {
       console.log(`Error: ${error.message}`);
     }
-    
+
   }
 
   const handleEnvironmentsClick = async (e) => {
