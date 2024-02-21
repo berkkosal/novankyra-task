@@ -1,27 +1,51 @@
 import { Box, Button, Stack, TextField } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import NetworkManager from '../services/NetworkManager';
+import AuthContext from '../helper/AuthProvider';
+
+const LOGIN_URL = '/token/'
 
 export default function UserLogin({ }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
+  const { setAuth } = useContext(AuthContext);
+  const [success, setSuccess] = useState(false);
 
 
+  useEffect(() => {
+    setErrMsg('');
+  }, [email, password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // try {
-    //   const response = await NetworkManager.post("/token/", { email, password });
-    //   console.log('Access Token: ' + response.data.access);
-    // } catch (error) {
-    //   console.log(`Error: ${error.message}`);
-    // }
+    try {
+      const response = await NetworkManager.post(LOGIN_URL, { email, password });
+      console.log('Access Token: ' + response.data.access);
+      const accessToken = response.data.access;
+      setAuth({ email, password, accessToken });
+      setSuccess(true);
+
+    } catch (error) {
+      // Handle errors, need to add an error displayer to my code.
+      
+      // if (!error?.response) {
+      //   setErrMsg('No Server Response');
+      // } else if (error.response?.status === 400) {
+      //   setErrMsg('Missing Email or Password');
+      // } else if (error.response?.status === 401) {
+      //   setErrMsg('Unauthorized');
+      // } else {
+      //   setErrMsg('Login Failed');
+      // }
+
+      console.log(`Error: ${error.message}`);
+    }
+
     console.log(email, password);
     setEmail('');
     setPassword('');
-    setIsAuthenticated(true);
 
   }
 
@@ -44,7 +68,7 @@ export default function UserLogin({ }) {
 
   return (
     <>
-      {isAuthenticated ? (
+      {success ? (
         <>
           <h1>You are logged in.</h1>
           <Button sx={{ mt: '2rem' }}
