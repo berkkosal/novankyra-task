@@ -51,6 +51,7 @@ export default function UserLogin({ }) {
 
   }
 
+  
   const handleEnvironmentsClick = async (e) => {
     NetworkManager.defaults.headers.get['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA4NDYxMDI0LCJpYXQiOjE3MDg0NTc0MjQsImp0aSI6IjU0MjcxNmY5OGIyNTQyNmNhNmRhOTY3NmM1MWQ5ZjA4IiwidXNlcl9pZCI6MSwiaWRlbnRpdHkiOiI0YzM0ZjFmYi00ZjlkLTQ2NDItODE4ZC1lNjQ0YzE5MzNjZTQifQ.jhXUq2M4GZAd4O66YGbFHNwlnlkTeeE3_bPnV6AIlCU'
     try {
