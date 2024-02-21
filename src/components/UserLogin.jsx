@@ -6,11 +6,10 @@ import AuthContext from '../helper/AuthProvider';
 const LOGIN_URL = '/token/'
 
 export default function UserLogin({ }) {
-
+  const { setAuth } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
-  const { setAuth } = useContext(AuthContext);
   const [success, setSuccess] = useState(false);
 
 
@@ -23,13 +22,16 @@ export default function UserLogin({ }) {
     try {
       const response = await NetworkManager.post(LOGIN_URL, { email, password });
       console.log('Access Token: ' + response.data.access);
+      console.log('Refresh Token: ' + response.data.refresh);
+
       const accessToken = response.data.access;
-      setAuth({ email, password, accessToken });
+      const refreshToken = response.data.refresh;
+      setAuth({ email, password, accessToken, refreshToken });
       setSuccess(true);
 
     } catch (error) {
       // Handle errors, need to add an error displayer to my code.
-      
+
       // if (!error?.response) {
       //   setErrMsg('No Server Response');
       // } else if (error.response?.status === 400) {
