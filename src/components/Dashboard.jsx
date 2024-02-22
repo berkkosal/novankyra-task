@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NetworkManager from '../services/NetworkManager';
+import { Button } from '@mui/material';
 
 export default function Dashboard() {
 
@@ -40,6 +41,23 @@ export default function Dashboard() {
     description: 'Box type B',
   }]
 
+  const handleEnvironmentsClick = async (e) => {
+    NetworkManager.defaults.headers.get['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA4NDYxMDI0LCJpYXQiOjE3MDg0NTc0MjQsImp0aSI6IjU0MjcxNmY5OGIyNTQyNmNhNmRhOTY3NmM1MWQ5ZjA4IiwidXNlcl9pZCI6MSwiaWRlbnRpdHkiOiI0YzM0ZjFmYi00ZjlkLTQ2NDItODE4ZC1lNjQ0YzE5MzNjZTQifQ.jhXUq2M4GZAd4O66YGbFHNwlnlkTeeE3_bPnV6AIlCU'
+    try {
+      const response = await NetworkManager.get("/v1/environments?org_id=1",);
+      console.log(response.data);
+    } catch (error) {
+      console.log(`Error: ${error.message}`);
+    }
+
+    console.log(tokens);
+
+  }
+
+  const handleTargetsClick = (e) => {
+
+  }
+
   const handleClick = async (e) => {
     const currentId = e.target.id - 1;
     setSelectedTargetId(targetData[currentId].id);
@@ -55,6 +73,18 @@ export default function Dashboard() {
   return (
     <>
       <h1>Environments</h1>
+      <Button sx={{ mt: '2rem' }}
+        onClick={handleEnvironmentsClick}
+        variant="outlined">
+        Get Environments
+      </Button>
+
+      <Button
+        sx={{ mt: '2rem' }}
+        onClick={handleTargetsClick}
+        variant="outlined">
+        Get Targets
+      </Button>
       {targetDetail
         ?
         <>
