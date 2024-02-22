@@ -46,11 +46,11 @@ export default function Dashboard() {
     setTargetDetail(true);
   }
 
-  useEffect(()=>{
-    if(selectedTargetId!=null){
+  useEffect(() => {
+    if (selectedTargetId != null) {
       console.log(selectedTargetId);
     }
-  },[selectedTargetId])
+  }, [selectedTargetId])
 
   return (
     <>
@@ -60,8 +60,8 @@ export default function Dashboard() {
         <>
           <div>Returnün içindeki div</div>
           <p>{'Target ID:' + targetData[selectedTargetId - 1].id}</p>
-          <p>{'Target Name:' + targetData[selectedTargetId-1].name}</p>
-          <p>{'Target Description:' + targetData[selectedTargetId-1].description}</p>
+          <p>{'Target Name:' + targetData[selectedTargetId - 1].name}</p>
+          <p>{'Target Description:' + targetData[selectedTargetId - 1].description}</p>
 
         </>
         :
