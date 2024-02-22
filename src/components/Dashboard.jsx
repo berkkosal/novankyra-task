@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import NetworkManager from '../services/NetworkManager';
 
 export default function Dashboard() {
 
@@ -39,22 +40,12 @@ export default function Dashboard() {
     description: 'Box type B',
   }]
 
-  const handleClick = (e) => {
-    console.log(e.target);
-    console.log(e.target.id);
-    setSelectedTargetId = (e.target.id);
+  const handleClick = async (e) => {
+    setSelectedTargetId(targetData[e.target.id].id);
     console.log(selectedTargetId);
     targetDetail ? setTargetDetail(false) : setTargetDetail(true);
   }
-
-  // useEffect(() => {
-  //   console.log(targetDetail);
-  // }, [targetDetail])
-
-  useEffect(()=>{
-    setSelectedTargetId(e.target.id)
-  }, [selectedTargetId])
-
+  
   return (
     <>
       <h1>Environments</h1>
@@ -62,9 +53,9 @@ export default function Dashboard() {
         ?
         <>
           <div>Returnün içindeki div</div>
-          <p>{'Target ID:' + targetData[1].id}</p>
-          <p>{'Target Name:' + targetData[1].name}</p>
-          <p>{'Target Description:' + targetData[1].description}</p>
+          <p>{'Target ID:' + targetData[selectedTargetId -1].id}</p>
+          <p>{'Target Name:' + targetData[selectedTargetId].name}</p>
+          <p>{'Target Description:' + targetData[selectedTargetId].description}</p>
 
         </>
         :
