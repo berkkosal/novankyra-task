@@ -41,11 +41,17 @@ export default function Dashboard() {
   }]
 
   const handleClick = async (e) => {
-    setSelectedTargetId(targetData[e.target.id].id);
-    console.log(selectedTargetId);
-    targetDetail ? setTargetDetail(false) : setTargetDetail(true);
+    const currentId = e.target.id - 1;
+    setSelectedTargetId(targetData[currentId].id);
+    setTargetDetail(true);
   }
-  
+
+  useEffect(()=>{
+    if(selectedTargetId!=null){
+      console.log(selectedTargetId);
+    }
+  },[selectedTargetId])
+
   return (
     <>
       <h1>Environments</h1>
@@ -53,9 +59,9 @@ export default function Dashboard() {
         ?
         <>
           <div>Returnün içindeki div</div>
-          <p>{'Target ID:' + targetData[selectedTargetId -1].id}</p>
-          <p>{'Target Name:' + targetData[selectedTargetId].name}</p>
-          <p>{'Target Description:' + targetData[selectedTargetId].description}</p>
+          <p>{'Target ID:' + targetData[selectedTargetId - 1].id}</p>
+          <p>{'Target Name:' + targetData[selectedTargetId-1].name}</p>
+          <p>{'Target Description:' + targetData[selectedTargetId-1].description}</p>
 
         </>
         :
