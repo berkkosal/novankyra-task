@@ -33,8 +33,6 @@ export default function UserLogin({ }) {
       setPassword('');
 
     } catch (error) {
-      // Handle errors, need to add an error displayer to my code.
-
       if (!error?.response) {
         setErrMsg('No Server Response');
       } else if (error.response?.status === 400) {
@@ -44,12 +42,8 @@ export default function UserLogin({ }) {
       } else {
         setErrMsg('Login Failed');
       }
-
     }
-
     console.log(email, password);
-
-
   }
 
 
