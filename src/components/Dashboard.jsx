@@ -1,7 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import NetworkManager from '../services/NetworkManager';
-import { Button } from '@mui/material';
+import { Box, Button, List, ListItem, ListItemButton, ListItemText, Stack, Typography } from '@mui/material';
 import AuthContext from '../helper/AuthProvider';
+import { FaDatabase } from "react-icons/fa6";
+
+
 
 export default function Dashboard() {
 
@@ -46,30 +49,37 @@ export default function Dashboard() {
   }, [selectedTargetId])
 
   return (
-    <>
-      <h1>Environments</h1>
-      <Button sx={{ mt: '2rem', mb: '2rem' }}
+    <Box>
+      <Typography textAlign='center' variant='h2'>Environments</Typography>
+      <Button sx={{ mt: '2rem', mb: '2rem', alignSelf:'center'}}
         onClick={handleEnvironmentsClick}
-        variant="outlined">
+        variant="outlined"
+        startIcon={<FaDatabase/>}>
         Get Environments
+        
       </Button>
       <br />
 
-      <ul>
+      <List>
         {environmentData.map(environment =>
-          <li key={environment.id}>
-            <h1>Name: {environment.name}</h1>
-            <h3>Description: {environment.description}</h3>
-            <h4>Assigned Targets: {environment.assigned_targets.map(targetId =>
-              <li key={targetId}>
-                <p>Target Id: {targetId}</p>
-                <button id={targetId} onClick={handleTargetClick}>Detail</button>
-              </li>
-            )}
-            </h4>
-          </li>
+          <ListItem key={environment.id}>
+            <Stack>
+              <Typography variant='h4'>Name: {environment.name} </Typography>
+              <Typography variant='h5'>Description: {environment.description} </Typography>
+            </Stack>
+            <Stack>
+              <Typography variant='h6'>Assigned Targets: {environment.assigned_targets.map(targetId =>
+                <ListItem key={targetId}>
+                  <ListItemText>Target Id: {targetId}</ListItemText>
+                  <ListItemButton id={targetId} onClick={handleTargetClick}>Detail</ListItemButton>
+                </ListItem>
+
+              )}
+              </Typography>
+            </Stack>
+          </ListItem>
         )}
-      </ul>
+      </List>
 
       {targetDetail
         ?
@@ -85,6 +95,6 @@ export default function Dashboard() {
           targetDetail false.
         </div>
       }
-    </>
+    </Box>
   )
 }
