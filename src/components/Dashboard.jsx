@@ -67,7 +67,7 @@ export default function Dashboard() {
           <List>
             {environmentData.map(environment =>
               <>
-                <ListItem key={environment.id} alignItems='flex-start'>
+                <ListItem key={environment.id} alignItems='center'>
                   <Stack flex={2} alignItems='center'>
                     <Typography sx={{ mb: '2rem' }} variant='h4'>Name: {environment.name} </Typography>
                     <Typography variant='h5'>Description: {environment.description} </Typography>
@@ -83,7 +83,14 @@ export default function Dashboard() {
                             <ListItemText>Target Id: {targetId}</ListItemText>
                           </Stack>
                           <Stack>
-                            <ListItemButton id={targetId} onClick={handleTargetClick}>Detail</ListItemButton>
+                            <ListItemButton
+                              id={targetId}
+                              onClick={handleTargetClick}
+                              sx={{
+                                fontSize: '12px',
+                                color:'#C3E0E5'
+                              }}
+                            >Detail</ListItemButton>
                           </Stack>
                         </ListItem>
                       </Stack>
