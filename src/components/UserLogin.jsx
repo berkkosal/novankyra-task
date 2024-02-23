@@ -2,7 +2,7 @@ import { Box, Button, Stack, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import NetworkManager from '../services/NetworkManager';
 import useAuth from '../hooks/useAuth';
-import { Link, useNavigate } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 
 const LOGIN_URL = '/token/'
@@ -10,9 +10,6 @@ const LOGIN_URL = '/token/'
 export default function UserLogin() {
 
   const { setAuth } = useAuth();
-
-  const navigate = useNavigate();
-
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
