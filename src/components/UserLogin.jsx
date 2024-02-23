@@ -2,7 +2,7 @@ import { Box, Button, Stack, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import NetworkManager from '../services/NetworkManager';
 import useAuth from '../hooks/useAuth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const LOGIN_URL = '/token/'
@@ -10,6 +10,9 @@ const LOGIN_URL = '/token/'
 export default function UserLogin() {
 
   const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -51,12 +54,14 @@ export default function UserLogin() {
     console.log(email, password);
   }
 
+
+
   return (
     <>
       {success ? (
         <>
           <h1>You are logged in.</h1>
-          <Link to='/dashboard'>Go to Dashboard</Link>
+          <Link to='/dashboard'> Go to Dashboard. </Link>
         </>
       ) : (
         <Box display="flex" justifyContent="center" sx={{ minHeight: "100vh", bgcolor: "#41729F" }}>
