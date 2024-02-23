@@ -60,52 +60,63 @@ export default function Dashboard() {
         </Button>
         <br />
       </Stack>
-      <Stack>
-        <List>
-          {environmentData.map(environment =>
-            <>
-              <ListItem key={environment.id} alignItems='flex-start'>
-                <Stack flex={2} alignItems='center'>
-                  <Typography sx={{ mb: '2rem' }} variant='h4'>Name: {environment.name} </Typography>
-                  <Typography variant='h5'>Description: {environment.description} </Typography>
-                </Stack>
-                <Stack display='flex' flex={3} justifyContent='center'>
-                  <Stack>
-                    <Typography variant='h5' textAlign='center'>Assigned Targets</Typography>
+
+      <Stack display='flex' direction='row'>
+
+        <Stack flex={2}>
+          <List>
+            {environmentData.map(environment =>
+              <>
+                <ListItem key={environment.id} alignItems='flex-start'>
+                  <Stack flex={2} alignItems='center'>
+                    <Typography sx={{ mb: '2rem' }} variant='h4'>Name: {environment.name} </Typography>
+                    <Typography variant='h5'>Description: {environment.description} </Typography>
                   </Stack>
-                  {environment.assigned_targets.map(targetId =>
+                  <Stack display='flex' flex={3} justifyContent='center'>
                     <Stack>
-                      <ListItem sx={{ justifyContent: 'center' }} key={targetId}>
-                        <Stack>
-                          <ListItemText>Target Id: {targetId}</ListItemText>
-                        </Stack>
-                        <Stack>
-                          <ListItemButton id={targetId} onClick={handleTargetClick}>Detail</ListItemButton>
-                        </Stack>
-                      </ListItem>
+                      <Typography variant='h5' textAlign='center'>Assigned Targets</Typography>
                     </Stack>
-                  )}
-                </Stack>
-              </ListItem>
-              <hr /></>
-          )}
-        </List>
+                    {environment.assigned_targets.map(targetId =>
+                      <Stack>
+                        <ListItem sx={{ justifyContent: 'center' }} key={targetId}>
+                          <Stack>
+                            <ListItemText>Target Id: {targetId}</ListItemText>
+                          </Stack>
+                          <Stack>
+                            <ListItemButton id={targetId} onClick={handleTargetClick}>Detail</ListItemButton>
+                          </Stack>
+                        </ListItem>
+                      </Stack>
+                    )}
+                  </Stack>
+                </ListItem>
+                <hr />
+              </>
+            )}
+
+          </List>
+        </Stack>
+
+        <Stack flex={1} justifyContent='center' alignItems='center'>
+          <>
+            {targetDetail
+              ?
+              <>
+                <p>{'Target ID: ' + targetData[selectedTargetId - 1].id}</p>
+                <p>{'Target Name: ' + targetData[selectedTargetId - 1].name}</p>
+                <p>{'Target Description: ' + targetData[selectedTargetId - 1].description}</p>
+              </>
+              :
+              <div>
+                <br />
+                targetDetail false.
+              </div>
+            }
+          </>
+        </Stack>
+
       </Stack>
 
-      {targetDetail
-        ?
-        <>
-          <div>Returnün içindeki div</div>
-          <p>{'Target ID:' + targetData[selectedTargetId - 1].id}</p>
-          <p>{'Target Name:' + targetData[selectedTargetId - 1].name}</p>
-          <p>{'Target Description:' + targetData[selectedTargetId - 1].description}</p>
-        </>
-        :
-        <div>
-          <br />
-          targetDetail false.
-        </div>
-      }
     </Box>
   )
 }
