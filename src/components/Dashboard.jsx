@@ -114,10 +114,9 @@ export default function Dashboard() {
                 <p>{'Target Description: ' + targetData[selectedTargetId - 1].description}</p>
               </>
               :
-              <div>
-                <br />
-                targetDetail false.
-              </div>
+              <>
+                
+              </>
             }
           </>
         </Stack>
