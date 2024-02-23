@@ -9,7 +9,7 @@ export default function Dashboard() {
   const [targetDetail, setTargetDetail] = useState(false);
   const loggedInUser = useContext(AuthContext);
   const [environmentData, setEnvironmentData] = useState([]);
-  const [targetData2, setTargetData2] = useState([]);
+  const [targetData, setTargetData] = useState([]);
 
 
   const handleEnvironmentsClick = async (e) => {
@@ -27,7 +27,7 @@ export default function Dashboard() {
     NetworkManager.defaults.headers.get['Authorization'] = `Bearer ${loggedInUser.auth.accessToken}`
     try {
       const response = await NetworkManager.get("/v1/targets/?org_id=1")
-      setTargetData2(response.data);
+      setTargetData(response.data);
     } catch (error) {
       console.log(`Error: ${error.message}`);
     }
@@ -35,7 +35,7 @@ export default function Dashboard() {
 
   const handleTargetClick = async (e) => {
     const currentId = e.target.id - 1;
-    setSelectedTargetId(targetData2[currentId].id);
+    setSelectedTargetId(targetData[currentId].id);
     setTargetDetail(true);
   }
 
@@ -75,9 +75,9 @@ export default function Dashboard() {
         ?
         <>
           <div>Returnün içindeki div</div>
-          <p>{'Target ID:' + targetData2[selectedTargetId - 1].id}</p>
-          <p>{'Target Name:' + targetData2[selectedTargetId - 1].name}</p>
-          <p>{'Target Description:' + targetData2[selectedTargetId - 1].description}</p>
+          <p>{'Target ID:' + targetData[selectedTargetId - 1].id}</p>
+          <p>{'Target Name:' + targetData[selectedTargetId - 1].name}</p>
+          <p>{'Target Description:' + targetData[selectedTargetId - 1].description}</p>
         </>
         :
         <div>
