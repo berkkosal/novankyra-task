@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 
 export default function Dashboard() {
 
-  let [selectedTargetId, setSelectedTargetId] = useState(null);
+  const [selectedTargetId, setSelectedTargetId] = useState(null);
   const [targetDetail, setTargetDetail] = useState(false);
 
   const environmentData = [{
