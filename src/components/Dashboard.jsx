@@ -50,36 +50,47 @@ export default function Dashboard() {
 
   return (
     <Box>
-      <Typography textAlign='center' variant='h2'>Environments</Typography>
-      <Button sx={{ mt: '2rem', mb: '2rem', alignSelf:'center'}}
-        onClick={handleEnvironmentsClick}
-        variant="outlined"
-        startIcon={<FaDatabase/>}>
-        Get Environments
-        
-      </Button>
-      <br />
-
-      <List>
-        {environmentData.map(environment =>
-          <ListItem key={environment.id}>
-            <Stack>
-              <Typography variant='h4'>Name: {environment.name} </Typography>
-              <Typography variant='h5'>Description: {environment.description} </Typography>
-            </Stack>
-            <Stack>
-              <Typography variant='h6'>Assigned Targets: {environment.assigned_targets.map(targetId =>
-                <ListItem key={targetId}>
-                  <ListItemText>Target Id: {targetId}</ListItemText>
-                  <ListItemButton id={targetId} onClick={handleTargetClick}>Detail</ListItemButton>
-                </ListItem>
-
-              )}
-              </Typography>
-            </Stack>
-          </ListItem>
-        )}
-      </List>
+      <Stack>
+        <Typography textAlign='center' variant='h2'>Environments</Typography>
+        <Button sx={{ mt: '2rem', mb: '2rem', alignSelf: 'center' }}
+          onClick={handleEnvironmentsClick}
+          variant="outlined"
+          startIcon={<FaDatabase />}>
+          Get Environments
+        </Button>
+        <br />
+      </Stack>
+      <Stack>
+        <List>
+          {environmentData.map(environment =>
+            <>
+              <ListItem key={environment.id} alignItems='flex-start'>
+                <Stack flex={2} alignItems='center'>
+                  <Typography sx={{ mb: '2rem' }} variant='h4'>Name: {environment.name} </Typography>
+                  <Typography variant='h5'>Description: {environment.description} </Typography>
+                </Stack>
+                <Stack display='flex' flex={3} justifyContent='center'>
+                  <Stack>
+                    <Typography variant='h5' textAlign='center'>Assigned Targets</Typography>
+                  </Stack>
+                  {environment.assigned_targets.map(targetId =>
+                    <Stack>
+                      <ListItem sx={{ justifyContent: 'center' }} key={targetId}>
+                        <Stack>
+                          <ListItemText>Target Id: {targetId}</ListItemText>
+                        </Stack>
+                        <Stack>
+                          <ListItemButton id={targetId} onClick={handleTargetClick}>Detail</ListItemButton>
+                        </Stack>
+                      </ListItem>
+                    </Stack>
+                  )}
+                </Stack>
+              </ListItem>
+              <hr /></>
+          )}
+        </List>
+      </Stack>
 
       {targetDetail
         ?
