@@ -88,7 +88,7 @@ export default function Dashboard() {
                               onClick={handleTargetClick}
                               sx={{
                                 fontSize: '12px',
-                                color:'#C3E0E5'
+                                color: '#C3E0E5'
                               }}
                             >Detail</ListItemButton>
                           </Stack>
@@ -115,7 +115,6 @@ export default function Dashboard() {
               </>
               :
               <>
-                
               </>
             }
           </>
